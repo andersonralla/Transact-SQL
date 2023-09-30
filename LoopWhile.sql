@@ -5,9 +5,6 @@
 
 DECLARE @DataInicio DATE = '2023-01-01';
 DECLARE @DataFinal DATE = CONVERT(DATE, GETDATE() - 1);
-DECLARE @DataAtual DATE;
-
-SET @DataAtual = @DataInicio
 
 CREATE TABLE #Datas (Data DATE);
 
@@ -18,7 +15,7 @@ BEGIN
 	INSERT INTO #Datas (Data) VALUES (@DataInicio);
     SET @DataInicio = DATEADD(DAY, 1, @DataInicio);
 
-PRINT('Data Atual ' + CONVERT(NVARCHAR(10), @DataAtual, 120))
+PRINT('Data Atual ' + CONVERT(NVARCHAR(10), @DataInicio, 120))
 
 
 IF OBJECT_ID('Tempdb..#Temp1') IS NOT NULL DROP TABLE #Temp1;
@@ -37,8 +34,6 @@ INNER JOIN #Datas AS b
 ON a.[Data] = b.Data
 GROUP BY
     a.[Data], CONVERT(VARCHAR(2), a.[Hora], 108), a.[Coluna1];
-
-	SET @DataAtual = DATEADD(DAY, 1, @DataAtual); 
 
 END;
 
