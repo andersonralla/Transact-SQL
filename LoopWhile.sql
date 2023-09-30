@@ -22,6 +22,7 @@ IF OBJECT_ID('Tempdb..#Temp1') IS NOT NULL DROP TABLE #Temp1;
 
 SELECT
     a.[Data],
+    b.[Data],
     CONVERT(VARCHAR(2), a.[Hora], 108) AS 'Hora',
     a.[Coluna1],
     SUM(a.[Coluna2]) AS 'SomaColuna2',
@@ -41,3 +42,5 @@ SELECT * FROM #Temp1 a
 INNER JOIN #Datas b
 ON a.[Data] = b.Data
 ORDER BY a.[Data] ASC;
+
+drop table #Datas;
