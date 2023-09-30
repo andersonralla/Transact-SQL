@@ -21,7 +21,7 @@ PRINT('Data Atual ' + CONVERT(NVARCHAR(10), @DataInicio, 120))
 IF OBJECT_ID('Tempdb..#Temp1') IS NOT NULL DROP TABLE #Temp1;
 
 SELECT
-    a.[Data],
+    CONVERT(date,a.[Data]) as 'Data',
     b.[Data],
     CONVERT(VARCHAR(2), a.[Hora], 108) AS 'Hora',
     a.[Coluna1],
@@ -33,8 +33,7 @@ INTO #Temp1
 FROM [BANCO_DADOS].[dbo].[TABELA] a WITH (NOLOCK)
 INNER JOIN #Datas AS b
 ON a.[Data] = b.Data
-GROUP BY
-    a.[Data], CONVERT(VARCHAR(2), a.[Hora], 108), a.[Coluna1];
+GROUP BY CONVERT(date,a.[Data]),b.[Data], CONVERT(VARCHAR(2), a.[Hora], 108), a.[Coluna1];
 
 END;
 
